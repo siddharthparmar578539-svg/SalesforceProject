@@ -77,17 +77,16 @@ jobs:
 
       - name: Authenticate to Salesforce (${{ env.ENV_NAME }})
         run: |
-          # 1. Output the auth URL straight to a temp file
-          echo "${{ env.AUTH_URL }}" > sfdx_auth_url.txt
+          # Use "echo -n" to prevent adding hidden newline characters
+          echo -n "${{ env.AUTH_URL }}" > sfdx_auth_url.txt
           
-          # 2. Authenticate using the file tracker flag instead
           sf org login sfdx-url \
             --sfdx-url-file sfdx_auth_url.txt \
             --alias target-org \
             --set-default
           
-          # 3. Wipe the secret file immediately for runtime security
           rm sfdx_auth_url.txt
+
 
 
       - name: Generate Delta Package
