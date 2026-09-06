@@ -76,9 +76,12 @@ jobs:
           fi
 
       - name: Authenticate to Salesforce (${{ env.ENV_NAME }})
+        # This block connects your hidden GitHub Secret to the script environment
+        env:
+          AUTH_URL: ${{ secrets.SFDX_AUTH_URL }} 
         run: |
-          # Use "echo -n" to prevent adding hidden newline characters
-          echo -n "${{ env.AUTH_URL }}" > sfdx_auth_url.txt
+          # Write the environment variable safely to a file
+          echo -n "$AUTH_URL" > sfdx_auth_url.txt
           
           sf org login sfdx-url \
             --sfdx-url-file sfdx_auth_url.txt \
