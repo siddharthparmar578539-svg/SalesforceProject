@@ -9,7 +9,6 @@ on:
 jobs:
   Deploy-to-sffnoobs-environment:
       runs-on: ubuntu-latest
-      environment: sffnoobs
       steps:
           - uses: actions/setup-node@v4
             with:
